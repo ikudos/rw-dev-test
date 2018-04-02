@@ -1,0 +1,41 @@
+<?php
+/**
+ * @file
+ * Module to log timestamp on user delete.
+*/
+
+/**
+  * Implements hook_user_delete().
+  */
+function rw_user_delete_log_user_delete($account){
+
+  // Add record of deletion to db.
+  $insert = db_insert('rw_deleted_users')
+    ->fields(array(
+      'deleted_user_id' => $account->uid,
+      'date_deleted' => REQUEST_TIME,
+    ))
+    ->execute();
+
+  // let them know how it went.
+  if(!$insert){
+    drupal_set_message("There was an issue adding the deleted user to the log table. ");
+  }
+  else {
+    drupal_set_message("The deletion of the user has been logged.");
+  }
+
+}
+
+/**
+  * Implements hook_watchdog().
+  * This is here to check if the user had been deleted, hook_user_delete fires before the actual deletion.
+  * A message will show if the watchdog message doesn't start with 'Deleted User:'.
+  */
+function rw_user_delete_log_watchdog($log_entry){
+
+    if(!substr( $log_entry['message'],0,13) == 'Deleted User:'){
+      drupal_set_message('The user may not have been deleted. This could be a network issue or bug. This may need your attention.');
+    }
+
+}

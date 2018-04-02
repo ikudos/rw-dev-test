@@ -1,0 +1,5 @@
+name = User Delete Log
+description = Logs timestamp on user delete.
+core = 7.x
+version = 7.x-0.1
+package = _RW

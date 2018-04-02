@@ -1,0 +1,58 @@
+<?php
+/**
+  * @file
+  * Install, update and uninstall functions for the RW User Delete Log module.
+  */
+
+/**
+  * Implements hook_install().
+  */
+function rw_user_delete_log_install(){
+
+  // Drupal adding table magic.
+
+}
+
+/**
+  * Implements hook_uninstall().
+  */
+function rw_user_delete_log_uninstall(){
+
+  // Drupal deletes table. So long table, it was good while it lasted.
+
+}
+/**
+  * Implements hook_schema().
+  */
+function rw_user_delete_log_schema(){
+
+  // Schema for log table on install.
+  $schema['rw_deleted_users'] =  array(
+
+   'fields' => array(
+     'id' => array(
+       'description' => 'Auto id row identifier.',
+       'type' => 'serial',
+       'unsigned' => TRUE,
+       'not null' => TRUE),
+
+     'deleted_user_id' => array(
+       'description' => 'The user id of the user deleted.',
+       'type' => 'int',
+       'unsigned' => TRUE,
+       'not null' => TRUE,
+       'default' => 0),
+
+     'date_deleted' => array(
+       'description' => 'The timestamp the user was deleted.',
+       'type' => 'varchar',
+       'length' => 32,
+       'not null' => TRUE,
+       'default' => ''),
+     ),
+
+   'primary key' => array('id'),
+ );
+
+ return $schema;
+}
