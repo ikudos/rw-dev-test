@@ -21,6 +21,7 @@ function rw_user_delete_log_uninstall(){
   // Drupal deletes table. So long table, it was good while it lasted.
 
 }
+
 /**
   * Implements hook_schema().
   */
